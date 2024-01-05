@@ -96,18 +96,22 @@ roles:
 Defines the `TrainServer` struct, which implements the gRPC service.
 Implements methods like `PurchaseTicket`, `GetReceipt`, `GetUsersBySection`, `RemoveUser`, `ModifySeat`, etc.
 Handles the logic for ticket purchase, seat allocation, receipt retrieval, user removal, and seat modification.
+
 2. server/config.go:
 
 Defines the configuration structures (`Config`, `AuthConfig`, `RoleUser`, `TrainConfig`) used for server configuration and initialization.
 Provides a method (`InitConfig`) to read configuration from a YAML file.
+
 3. server/auth.go:
 
 Implements JWT authentication-related functionalities.
 Defines a custom `JwtClaims` struct representing JWT claims.
 Provides functions for JWT generation (`GenerateJWT`), authentication check (`AuthCheck`), and JWT parsing middleware (`ParseJWTMiddleware`).
+
 4. server/util.go:
 
 Contains utility functions such as `isValidUser` for validating user data.
+
 5. main.go:
 
 The entry point of the server application.
