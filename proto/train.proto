@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package train;
+
+option go_package = "github.com/playbody/train-ticket-service/proto";
+
+service TrainService {
+    // Auth User
+    rpc AuthUser(AuthRequest) returns (AuthResponse) {}
+    // Get All Routes
+    rpc GetAllRoutes(RouteRequest) returns (RouteResponse) {}
+    // An API where we can submit a purchase for a ticket.
+    rpc PurchaseTicket(PurchaseRequest) returns (PurchaseResponse) {}
+    // An API that shows the details of the receipt for the user
+    rpc GetReceipt(ReceiptRequest) returns (ReceiptResponse) {}
+    // An API that lets you view the users and seat they are allocated by the requested section
+    rpc GetUsersBySection(SectionRequest) returns (SectionResponse) {}
+    // An API to remove a user from the train
+    rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {}
+    // An API to modify a user’s seat
+    rpc ModifySeat(ModifySeatRequest) returns (ModifySeatResponse) {}
+}
+
+message AuthRequest {
+    string email = 1;
+}
+
+message AuthResponse {
+    string token = 1;
+}
+
+message RouteRequest {
+}
+
+message Route {
+    string from = 1;
+    string to = 2;
+    int32 price = 3;
+}
+
+message RouteResponse {
+    repeated Route routes = 1;
+}
+
+message User {
+    string first_name = 1;
+    string last_name = 2;
+    string email = 3;
+}
+
+message PurchaseRequest {
+    User user = 1;
+    string from = 2;
+    string to = 3;
+    int32 price = 4;
+}
+
+message PurchaseResponse {
+    string section = 1;
+    int32 seat = 2;
+    string message = 3;
+    int32 route = 4;
+}
+
+message ReceiptRequest {
+    string email = 1;
+}
+
+message ReceiptResponse {
+    User user = 1;
+    string from = 2;
+    string to = 3;
+    int32 price = 4;
+    string section = 5;
+    int32 seat = 6;
+}
+
+message Seat {
+    User user = 1;
+    int32 seat = 2;
+}
+
+message SectionRequest {
+    int32 route = 1;
+    string section = 2;
+}
+
+message SectionResponse {
+    repeated Seat seats = 1;
+}
+
+message RemoveUserRequest {
+    string email = 1;
+}
+
+message RemoveUserResponse {
+    int32 route = 1;
+    string section = 2;
+    int32 seat = 3;
+    string message = 4;
+}
+
+message ModifySeatRequest {
+    string email = 1;
+    int32 seat = 2;
+}
+
+message ModifySeatResponse {
+    string message = 1;
+}
